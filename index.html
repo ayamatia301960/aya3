@@ -1,0 +1,1435 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#D86B22">
+
+<title>Promise A&S | دليل العميل</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&display=swap');
+
+:root{
+    --orange:#D86B22;
+    --orange2:#F19A5A;
+    --dark:#171514;
+    --dark2:#24201D;
+    --cream:#FAF6F1;
+    --white:#FFFFFF;
+    --text:#292522;
+    --muted:#77716C;
+    --border:#E9DED4;
+    --shadow:0 15px 45px rgba(45,28,17,.10);
+}
+
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    font-family:"Cairo",Arial,sans-serif;
+    background:var(--cream);
+    color:var(--text);
+    line-height:1.8;
+}
+
+a{
+    text-decoration:none;
+    color:inherit;
+}
+
+button{
+    font-family:inherit;
+    cursor:pointer;
+}
+
+.container{
+    width:min(1120px,92%);
+    margin:auto;
+}
+
+/* ================= HEADER ================= */
+
+header{
+    position:fixed;
+    top:0;
+    left:0;
+    right:0;
+    z-index:1000;
+    background:rgba(250,246,241,.90);
+    backdrop-filter:blur(15px);
+    border-bottom:1px solid rgba(233,222,212,.7);
+}
+
+.nav{
+    height:72px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+}
+
+.logo{
+    font-size:20px;
+    font-weight:800;
+    letter-spacing:.5px;
+}
+
+.logo span{
+    color:var(--orange);
+}
+
+.nav-links{
+    display:flex;
+    gap:24px;
+    font-size:14px;
+    font-weight:600;
+}
+
+.nav-links a{
+    transition:.25s;
+}
+
+.nav-links a:hover{
+    color:var(--orange);
+}
+
+.menu-btn{
+    display:none;
+    border:0;
+    background:none;
+    font-size:27px;
+}
+
+/* ================= HERO ================= */
+
+.hero{
+    min-height:100vh;
+    padding:145px 0 80px;
+
+    background:
+        radial-gradient(
+            circle at 85% 25%,
+            rgba(216,107,34,.20),
+            transparent 32%
+        ),
+        var(--cream);
+
+    display:flex;
+    align-items:center;
+}
+
+.hero-grid{
+    display:grid;
+    grid-template-columns:1.1fr .9fr;
+    gap:55px;
+    align-items:center;
+}
+
+.badge{
+    display:inline-block;
+    background:#F5E1D1;
+    color:#A54D18;
+    padding:6px 15px;
+    border-radius:30px;
+    font-size:13px;
+    font-weight:700;
+    margin-bottom:18px;
+}
+
+.hero h1{
+    font-size:clamp(40px,6vw,68px);
+    line-height:1.15;
+    margin-bottom:20px;
+}
+
+.orange{
+    color:var(--orange);
+}
+
+.hero-text{
+    color:var(--muted);
+    font-size:17px;
+    max-width:650px;
+}
+
+.buttons{
+    display:flex;
+    gap:12px;
+    flex-wrap:wrap;
+    margin-top:28px;
+}
+
+.btn{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    border:0;
+    border-radius:14px;
+    padding:13px 22px;
+    font-weight:700;
+    transition:.25s;
+}
+
+.btn:hover{
+    transform:translateY(-3px);
+}
+
+.btn-primary{
+    background:var(--orange);
+    color:white;
+    box-shadow:0 10px 25px rgba(216,107,34,.25);
+}
+
+.btn-secondary{
+    background:white;
+    border:1px solid var(--border);
+}
+
+/* HERO CARD */
+
+.hero-card{
+    min-height:450px;
+    border-radius:32px;
+    background:
+        radial-gradient(circle at 20% 85%,rgba(216,107,34,.45),transparent 35%),
+        linear-gradient(145deg,#312720,#121110);
+
+    color:white;
+    padding:30px;
+    position:relative;
+    overflow:hidden;
+    box-shadow:var(--shadow);
+}
+
+.hero-card:after{
+    content:"";
+    position:absolute;
+    width:300px;
+    height:300px;
+    border:1px solid rgba(255,255,255,.08);
+    border-radius:50%;
+    right:-120px;
+    top:-100px;
+}
+
+.hero-big{
+    font-size:70px;
+    font-weight:800;
+    line-height:1;
+    margin-top:75px;
+    position:relative;
+    z-index:2;
+}
+
+.hero-big span{
+    color:#E79A67;
+}
+
+.hero-card p{
+    color:#C7C0BB;
+    margin-top:15px;
+    position:relative;
+    z-index:2;
+}
+
+.stats{
+    position:absolute;
+    bottom:25px;
+    left:25px;
+    right:25px;
+
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:10px;
+}
+
+.stat{
+    background:rgba(255,255,255,.07);
+    border:1px solid rgba(255,255,255,.10);
+    padding:13px;
+    border-radius:15px;
+}
+
+.stat strong{
+    font-size:20px;
+}
+
+.stat small{
+    display:block;
+    color:#aaa;
+}
+
+/* ================= SECTIONS ================= */
+
+section{
+    padding:90px 0;
+}
+
+.section-title{
+    text-align:center;
+    margin-bottom:40px;
+}
+
+.section-title h2{
+    font-size:36px;
+    line-height:1.3;
+}
+
+.section-title p{
+    color:var(--muted);
+    margin-top:7px;
+}
+
+/* ================= ABOUT ================= */
+
+.cards{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:18px;
+}
+
+.card{
+    background:white;
+    border:1px solid var(--border);
+    border-radius:23px;
+    padding:27px;
+    box-shadow:0 5px 20px rgba(40,25,15,.04);
+    transition:.25s;
+}
+
+.card:hover{
+    transform:translateY(-5px);
+    box-shadow:var(--shadow);
+}
+
+.icon{
+    width:52px;
+    height:52px;
+    border-radius:16px;
+    background:#F8E5D7;
+    display:grid;
+    place-items:center;
+    font-size:24px;
+    margin-bottom:17px;
+}
+
+.card h3{
+    margin-bottom:8px;
+}
+
+.card p{
+    color:var(--muted);
+    font-size:14px;
+}
+
+/* ================= VILLAGE ================= */
+
+.village{
+    background:var(--dark);
+    color:white;
+}
+
+.village .section-title p{
+    color:#AAA39D;
+}
+
+.village-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:22px;
+}
+
+.viewer{
+    min-height:440px;
+    border-radius:26px;
+    background:
+        radial-gradient(circle at center,rgba(216,107,34,.22),transparent 40%),
+        #25211E;
+
+    border:1px solid #403831;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    padding:30px;
+}
+
+.viewer-circle{
+    width:90px;
+    height:90px;
+    border-radius:50%;
+    border:2px solid #DFA47D;
+
+    display:grid;
+    place-items:center;
+
+    font-size:28px;
+    margin:auto auto 20px;
+}
+
+.viewer small{
+    display:block;
+    color:#99918B;
+    margin-top:7px;
+}
+
+.village-points{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:12px;
+}
+
+.point{
+    background:#292522;
+    border:1px solid #3B342E;
+    border-radius:18px;
+    padding:20px;
+    transition:.25s;
+}
+
+.point:hover{
+    border-color:#8B5739;
+    transform:translateY(-3px);
+}
+
+.point b{
+    display:block;
+    margin-bottom:5px;
+}
+
+.point span{
+    color:#AAA39D;
+    font-size:13px;
+}
+
+/* ================= FAQ ================= */
+
+.faq{
+    max-width:850px;
+    margin:auto;
+}
+
+.faq-item{
+    background:white;
+    border:1px solid var(--border);
+    border-radius:17px;
+    overflow:hidden;
+    margin-bottom:10px;
+}
+
+.question{
+    width:100%;
+    border:0;
+    background:white;
+    padding:18px 20px;
+
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+    text-align:right;
+    font-weight:700;
+    font-size:15px;
+}
+
+.question span{
+    color:var(--orange);
+    font-size:22px;
+}
+
+.answer{
+    max-height:0;
+    overflow:hidden;
+    color:var(--muted);
+    font-size:14px;
+    padding:0 20px;
+
+    transition:.3s;
+}
+
+.faq-item.active .answer{
+    max-height:200px;
+    padding:0 20px 18px;
+}
+
+/* ================= ASK ================= */
+
+.ask-section{
+    background:#F1E0D2;
+}
+
+.ask-box{
+    max-width:850px;
+    margin:auto;
+
+    background:white;
+    border-radius:25px;
+    padding:30px;
+
+    box-shadow:var(--shadow);
+}
+
+.chips{
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px;
+    margin:18px 0;
+}
+
+.chip{
+    background:#FFF3E9;
+    border:1px solid #EED8C6;
+    border-radius:30px;
+    padding:9px 15px;
+    font-size:13px;
+    font-weight:600;
+    transition:.2s;
+}
+
+.chip:hover{
+    background:#F6DFCE;
+}
+
+.reply{
+    display:none;
+    background:#FAF5F0;
+    border-radius:17px;
+    padding:18px;
+    color:#625A54;
+}
+
+.reply.show{
+    display:block;
+}
+
+/* ================= CONTACT ================= */
+
+.contact-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:22px;
+}
+
+.contact-box{
+    background:white;
+    border:1px solid var(--border);
+    border-radius:23px;
+    padding:28px;
+}
+
+.contact-row{
+    padding:15px 0;
+    border-bottom:1px solid #eee;
+}
+
+.contact-row:last-child{
+    border-bottom:0;
+}
+
+.contact-row span{
+    color:var(--muted);
+    font-size:14px;
+}
+
+/* ================= FOOTER ================= */
+
+footer{
+    background:#151413;
+    color:#999;
+    text-align:center;
+    padding:30px;
+    font-size:13px;
+}
+
+.footer-logo{
+    color:white;
+    font-size:20px;
+    font-weight:800;
+    margin-bottom:5px;
+}
+
+.footer-logo span{
+    color:#E79A67;
+}
+
+/* ================= MOBILE ================= */
+
+@media(max-width:800px){
+
+    .nav-links{
+        display:none;
+        position:absolute;
+        top:72px;
+        left:4%;
+        right:4%;
+
+        background:white;
+        border:1px solid var(--border);
+        border-radius:18px;
+
+        padding:15px;
+
+        flex-direction:column;
+        gap:5px;
+
+        box-shadow:var(--shadow);
+    }
+
+    .nav-links.show{
+        display:flex;
+    }
+
+    .nav-links a{
+        padding:10px;
+    }
+
+    .menu-btn{
+        display:block;
+    }
+
+    .hero{
+        padding-top:120px;
+    }
+
+    .hero-grid{
+        grid-template-columns:1fr;
+    }
+
+    .hero-card{
+        min-height:390px;
+    }
+
+    .cards{
+        grid-template-columns:1fr;
+    }
+
+    .village-grid{
+        grid-template-columns:1fr;
+    }
+
+    .contact-grid{
+        grid-template-columns:1fr;
+    }
+}
+
+@media(max-width:480px){
+
+    section{
+        padding:65px 0;
+    }
+
+    .hero h1{
+        font-size:42px;
+    }
+
+    .hero-text{
+        font-size:15px;
+    }
+
+    .hero-big{
+        font-size:54px;
+        margin-top:45px;
+    }
+
+    .stats{
+        position:static;
+        margin-top:60px;
+    }
+
+    .village-points{
+        grid-template-columns:1fr;
+    }
+
+    .section-title h2{
+        font-size:30px;
+    }
+}
+</style>
+</head>
+
+
+<body>
+
+<!-- ================= HEADER ================= -->
+
+<header>
+
+<div class="container nav">
+
+<a href="#home" class="logo">
+    PROMISE <span>A&S</span>
+</a>
+
+<nav class="nav-links">
+
+<a href="#about">عن الشركة</a>
+<a href="#village">الحياة العين السخنة</a>
+<a href="#faq">الأسئلة</a>
+<a href="#ask">اسأل</a>
+<a href="#contact">تواصل</a>
+
+</nav>
+
+<button class="menu-btn" onclick="toggleMenu()">
+☰
+</button>
+
+</div>
+
+</header>
+
+
+<main>
+
+<!-- ================= HERO ================= -->
+
+<section class="hero" id="home">
+
+<div class="container hero-grid">
+
+<div>
+
+<div class="badge">
+دليلك مع Promise A&S
+</div>
+
+<h1>
+كل تفاصيل رحلتك
+<br>
+في <span class="orange">مكان واحد.</span>
+</h1>
+
+<p class="hero-text">
+تعرف على Promise A&S، واستكشف مشروع الحياة العين السخنة،
+واعرف أهم التفاصيل والأسئلة الخاصة بالتعاقد والخدمات
+بطريقة بسيطة وتفاعلية.
+</p>
+
+<div class="buttons">
+
+<a href="#village" class="btn btn-primary">
+استكشف القرية ←
+</a>
+
+<a href="#faq" class="btn btn-secondary">
+عندي سؤال؟
+</a>
+
+</div>
+
+</div>
+
+
+<div class="hero-card">
+
+<div class="badge">
+PROMISE A&S
+</div>
+
+<div class="hero-big">
+YOUR<br>
+<span>JOURNEY.</span>
+</div>
+
+<p>
+معلومات أوضح. تجربة أسهل.
+<br>
+وقرار مبني على فهم كامل.
+</p>
+
+<div class="stats">
+
+<div class="stat">
+<strong>01</strong>
+<small>دليل العميل</small>
+</div>
+
+<div class="stat">
+<strong>24/7</strong>
+<small>معلومات متاحة</small>
+</div>
+
+<div class="stat">
+<strong>∞</strong>
+<small>أسئلة وإجابات</small>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- ================= ABOUT ================= -->
+
+<section id="about">
+
+<div class="container">
+
+<div class="section-title">
+
+<h2>
+عن <span class="orange">Promise A&S</span>
+</h2>
+
+<p>
+كل ما تحتاج معرفته قبل اتخاذ قرارك.
+</p>
+
+</div>
+
+
+<div class="cards">
+
+<div class="card">
+
+<div class="icon">
+🏢
+</div>
+
+<h3>
+من نحن؟
+</h3>
+
+<p>
+هنا نضع التعريف الرسمي بشركة Promise A&S،
+ورؤيتها وخبرتها وطبيعة نشاطها.
+</p>
+
+</div>
+
+
+<div class="card">
+
+<div class="icon">
+🤝
+</div>
+
+<h3>
+خدمتنا للعميل
+</h3>
+
+<p>
+نهدف إلى توضيح التفاصيل ومساعدة العميل
+على فهم العرض والخطوات والاختيارات المتاحة.
+</p>
+
+</div>
+
+
+<div class="card">
+
+<div class="icon">
+✨
+</div>
+
+<h3>
+تجربة مختلفة
+</h3>
+
+<p>
+بدل الاعتماد على الكلام فقط،
+العميل يستطيع استكشاف المعلومات بنفسه
+بطريقة تفاعلية.
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- ================= VILLAGE ================= -->
+
+<section class="village" id="village">
+
+<div class="container">
+
+<div class="section-title">
+
+<h2>
+الحياة <span style="color:#E79A67">
+العين السخنة
+</span>
+</h2>
+
+<p>
+استكشف أهم الأماكن والخدمات داخل القرية.
+</p>
+
+</div>
+
+
+<div class="village-grid">
+
+
+<!-- 3D VIEWER -->
+
+<div class="viewer" id="viewer">
+
+<div>
+
+<div class="viewer-circle">
+360°
+</div>
+
+<h3>
+الجولة التفاعلية
+</h3>
+
+<small>
+اضغط لفتح الجولة ثلاثية الأبعاد
+</small>
+
+<button
+class="btn btn-primary"
+style="margin-top:20px"
+onclick="openAholo()">
+
+ابدأ الجولة
+
+</button>
+
+</div>
+
+</div>
+
+
+<!-- POINTS -->
+
+<div class="village-points">
+
+<div class="point">
+
+<b>
+🏖️ الشاطئ
+</b>
+
+<span>
+تعرف على منطقة الشاطئ والخدمات الموجودة بها.
+</span>
+
+</div>
+
+
+<div class="point">
+
+<b>
+🏊 حمامات السباحة
+</b>
+
+<span>
+أماكن للترفيه والاسترخاء داخل القرية.
+</span>
+
+</div>
+
+
+<div class="point">
+
+<b>
+💦 Aqua
+</b>
+
+<span>
+منطقة ترفيهية مناسبة للعائلة.
+</span>
+
+</div>
+
+
+<div class="point">
+
+<b>
+🏠 الوحدات
+</b>
+
+<span>
+تعرف على أنواع الوحدات ومزاياها.
+</span>
+
+</div>
+
+
+<div class="point">
+
+<b>
+🍽️ الخدمات
+</b>
+
+<span>
+الخدمات والمرافق المتاحة داخل المشروع.
+</span>
+
+</div>
+
+
+<div class="point">
+
+<b>
+📍 الموقع
+</b>
+
+<span>
+العين السخنة – البحر الأحمر.
+</span>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- ================= FAQ ================= -->
+
+<section id="faq">
+
+<div class="container">
+
+<div class="section-title">
+
+<h2>
+الأسئلة <span class="orange">الشائعة</span>
+</h2>
+
+<p>
+أهم الأسئلة التي قد تخطر في بالك.
+</p>
+
+</div>
+
+
+<div class="faq">
+
+
+<div class="faq-item">
+
+<button class="question">
+ما هي Promise A&S؟
+<span>+</span>
+</button>
+
+<div class="answer">
+هنا نضع التعريف الرسمي بالشركة وطبيعة نشاطها
+والخدمات التي تقدمها للعميل.
+</div>
+
+</div>
+
+
+<div class="faq-item">
+
+<button class="question">
+ما هي الحياة العين السخنة؟
+<span>+</span>
+</button>
+
+<div class="answer">
+مشروع سياحي في العين السخنة،
+ويمكن هنا إضافة الوصف الرسمي للمشروع
+والموقع والخدمات والمميزات.
+</div>
+
+</div>
+
+
+<div class="faq-item">
+
+<button class="question">
+ما هي تفاصيل التعاقد؟
+<span>+</span>
+</button>
+
+<div class="answer">
+هنا نضع تفاصيل نظام التعاقد الرسمية،
+والخطوات والمستندات المطلوبة وأهم البنود.
+</div>
+
+</div>
+
+
+<div class="faq-item">
+
+<button class="question">
+ما هي طرق السداد؟
+<span>+</span>
+</button>
+
+<div class="answer">
+هنا نضع أنظمة السداد الرسمية بالتفصيل
+بعد اعتمادها من إدارة الشركة.
+</div>
+
+</div>
+
+
+<div class="faq-item">
+
+<button class="question">
+هل توجد مصاريف إضافية؟
+<span>+</span>
+</button>
+
+<div class="answer">
+هنا نضع الإجابة الرسمية والشفافة
+عن أي رسوم أو مصروفات مرتبطة بالتعاقد أو الاستخدام.
+</div>
+
+</div>
+
+
+<div class="faq-item">
+
+<button class="question">
+ماذا يحدث بعد التعاقد؟
+<span>+</span>
+</button>
+
+<div class="answer">
+هنا نوضح للعميل خطوات ما بعد التعاقد،
+وكيفية التواصل وخدمة العميل والاستفادة من المميزات.
+</div>
+
+</div>
+
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- ================= ASK ================= -->
+
+<section class="ask-section" id="ask">
+
+<div class="container">
+
+<div class="section-title">
+
+<h2>
+اسأل عن <span class="orange">أي حاجة</span>
+</h2>
+
+<p>
+اختار الموضوع اللي عايز تعرف عنه.
+</p>
+
+</div>
+
+
+<div class="ask-box">
+
+<strong>
+إيه اللي حابب تعرفه؟
+</strong>
+
+
+<div class="chips">
+
+<button class="chip" onclick="showAnswer('التعاقد')">
+📄 التعاقد
+</button>
+
+<button class="chip" onclick="showAnswer('السداد')">
+💳 السداد
+</button>
+
+<button class="chip" onclick="showAnswer('القرية')">
+🌴 القرية
+</button>
+
+<button class="chip" onclick="showAnswer('الوحدات')">
+🏠 الوحدات
+</button>
+
+<button class="chip" onclick="showAnswer('الخدمات')">
+✨ الخدمات
+</button>
+
+<button class="chip" onclick="showAnswer('الاستخدام')">
+🔑 الاستخدام
+</button>
+
+</div>
+
+
+<div class="reply" id="reply"></div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- ================= CONTACT ================= -->
+
+<section id="contact">
+
+<div class="container">
+
+<div class="section-title">
+
+<h2>
+تواصل <span class="orange">معنا</span>
+</h2>
+
+<p>
+لو محتاج تفاصيل أكتر، فريق Promise جاهز يساعدك.
+</p>
+
+</div>
+
+
+<div class="contact-grid">
+
+
+<div class="contact-box">
+
+<h3>
+Promise A&S
+</h3>
+
+
+<div class="contact-row">
+
+📞 <strong>الهاتف</strong>
+
+<br>
+
+<span>
+أضف رقم التواصل الرسمي هنا
+</span>
+
+</div>
+
+
+<div class="contact-row">
+
+📍 <strong>الموقع</strong>
+
+<br>
+
+<span>
+أضف عنوان الشركة هنا
+</span>
+
+</div>
+
+
+<div class="contact-row">
+
+🕐 <strong>مواعيد العمل</strong>
+
+<br>
+
+<span>
+أضف المواعيد الرسمية هنا
+</span>
+
+</div>
+
+</div>
+
+
+<div class="contact-box">
+
+<h3>
+جاهز تعرف أكتر؟
+</h3>
+
+<p style="color:#777;margin:12px 0 22px">
+
+تقدر ترجع للأسئلة الشائعة
+أو تتواصل مباشرة مع فريق المبيعات
+للحصول على التفاصيل الرسمية.
+
+</p>
+
+<a href="#faq" class="btn btn-primary">
+شوف الأسئلة الشائعة
+</a>
+
+</div>
+
+
+</div>
+
+</div>
+
+</section>
+
+</main>
+
+
+<!-- ================= FOOTER ================= -->
+
+<footer>
+
+<div class="footer-logo">
+PROMISE <span>A&S</span>
+</div>
+
+دليل العميل التفاعلي © 2026
+
+</footer>
+
+
+<script>
+
+/* ================= MOBILE MENU ================= */
+
+function toggleMenu(){
+
+    document
+    .querySelector(".nav-links")
+    .classList
+    .toggle("show");
+
+}
+
+
+/* ================= FAQ ================= */
+
+document
+.querySelectorAll(".question")
+.forEach(function(button){
+
+    button.addEventListener("click",function(){
+
+        const item =
+        button.parentElement;
+
+        const isActive =
+        item.classList.contains("active");
+
+
+        document
+        .querySelectorAll(".faq-item")
+        .forEach(function(other){
+
+            other.classList.remove("active");
+
+            other
+            .querySelector(".question span")
+            .textContent="+";
+
+        });
+
+
+        if(!isActive){
+
+            item.classList.add("active");
+
+            button
+            .querySelector("span")
+            .textContent="−";
+
+        }
+
+    });
+
+});
+
+
+/* ================= ASK SYSTEM ================= */
+
+const answers = {
+
+    "التعاقد":
+    "هنا هنضيف تفاصيل نظام التعاقد الرسمي، الخطوات، المستندات، وأهم البنود بشكل مبسط وواضح للعميل.",
+
+    "السداد":
+    "هنا هنضيف أنظمة السداد الرسمية بالتفصيل، وممكن بعدين نعمل حاسبة أقساط تفاعلية.",
+
+    "القرية":
+    "هنا تقدر تستكشف الحياة العين السخنة، موقعها، الشاطئ، حمامات السباحة، Aqua والخدمات.",
+
+    "الوحدات":
+    "هنا هنضيف أنواع الوحدات والمساحات والمزايا والصور والأسعار إذا كان مسموح بعرضها.",
+
+    "الخدمات":
+    "هنا هنضيف قائمة الخدمات والمرافق والأنشطة المتاحة داخل القرية.",
+
+    "الاستخدام":
+    "هنا هنضيف طريقة الاستخدام والحجز والمواعيد والقواعد الخاصة بالاستفادة من الوحدة."
+
+};
+
+
+function showAnswer(key){
+
+    const reply =
+    document.getElementById("reply");
+
+
+    reply.innerHTML =
+    "<strong>"+key+"</strong><br>"
+    + answers[key];
+
+
+    reply.classList.add("show");
+
+}
+
+
+/* ================= AHOLO ================= */
+
+function openAholo(){
+
+    const viewer =
+    document.getElementById("viewer");
+
+
+    viewer.innerHTML = `
+
+    <iframe
+
+    title="Aholo 3D Viewer"
+
+    width="100%"
+
+    height="440"
+
+    allow="fullscreen; xr-spatial-tracking"
+
+    allowfullscreen
+
+    style="
+        border:0;
+        border-radius:20px;
+    "
+
+    src="https://studio.aholo3d.com/viewer?projectId=3FO4K4VCKX86&subSiteFrom=embed">
+
+    </iframe>
+
+    `;
+
+}
+
+</script>
+
+</body>
+</html>
